@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora Básica</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .fundo{
+        background-image: linear-gradient(45deg,black,rgb(0,150,150));
+        height: 100vh;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+    .calculadora{
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 15px;
+        border-radius: 15px;
+    }
+    .botao{
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+        cursor: pointer;
+        background-color: rgb(31,31,31);
+        color: white;
+        margin: 3px;
+    }
+    .botao:hover{
+        background-color: black;
+    }
+    #resultado{
+        background-color: white;
+        width: 207px; 
+        height: 30px;
+        margin: 5px;
+        text-align: right;
+        font-size: 25px;
+        color: black;
+    }
+</style>
+</head>
+<body>
+
+<div class="fundo">
+<h1>Diego Warick, CTII 148 - CB3019021</h1>
+<div class="calculadora">
+<p id="resultado"></p>  
+<table>
+    <tr>
+        <td><button class="botao" onclick="limpar()">C</button></td>
+        <td><button class="botao" onclick="voltar()"><</button></td>
+        <td><button class="botao" onclick="div('/')">/</button></td>
+        <td><button class="botao" onclick="mult('*')">x</button></td>
+    </tr>
+    <tr>
+        <td><button class="botao" onclick="insert('7')">7</button></td>
+        <td><button class="botao" onclick="insert('8')">8</button></td>
+        <td><button class="botao" onclick="insert('9')">9</button></td>
+        <td><button class="botao" onclick="sub('-')">-</button></td>
+    </tr>   
+    <tr>
+        <td><button class="botao" onclick="insert('4')">4</button></td>
+        <td><button class="botao" onclick="insert('5')">5</button></td>
+        <td><button class="botao" onclick="insert('6')">6</button></td>
+        <td><button class="botao" onclick="adi('+')">+</button></td>
+    </tr>
+    <tr>
+        <td><button class="botao" onclick="insert('1')">1</button></td>
+        <td><button class="botao" onclick="insert('2')">2</button></td>
+        <td><button class="botao" onclick="insert('3')">3</button></td>
+        <td rowspan="2"><button class="botao" style="height: 106px;" onclick="calcular()">=</button></td>
+    </tr>
+    <tr>
+        <td colspan="2"><button class="botao" style="width: 106px;" onclick="insert('0')">0</button></td>
+        <td><button class="botao" onclick="ponto('.')">.</button></td>
+    </tr>
+</table> 
+    </div>
+</div>
+ <script>
+    var op = 0;
+    var dist = 0;
+    var c = 0;
+    var p = 0;
+    var pd = 0;
+    var distant = 0;
+    var rpd = 0;
+function insert(n)
+{
+     var x = document.getElementById('resultado').innerHTML;
+     document.getElementById('resultado').innerHTML = x + n; 
+     dist++;  
+     c++;
+     op = 0;
+     if (p == 1) {
+                    pd++;
+                }
+    
+        }
+        function mult(m){
+            if (c != 0) {
+            if (op == 0 && dist != 0) {
+                document.getElementById('resultado').innerHTML += m;
+                op = 1;
+                distant = dist;
+                dist = 0;  
+                c++
+                if (p == 1) {
+                    pd++;
+                }
+            }
+        }
+        }
+        function div(div){
+            if (c != 0) {
+            if (op == 0 && dist != 0) {
+                document.getElementById('resultado').innerHTML += div;
+                op = 1;
+                distant = dist;
+                dist = 0;  
+                c++;
+                if (p == 1) {
+                    pd++;
+                }
+            }  
+        }
+        }
+        function ponto(p){
+            if (c != 0 && op == 0 && p == 0) {
+            document.getElementById('resultado').innerHTML += p;
+            p = 1;
+            distant = dist;
+            dist = 0;
+            c++;
+            } 
+        }
+        function adi(adi){
+            if (c != 0 && op == 0 && dist != 0){          
+                document.getElementById('resultado').innerHTML += adi; 
+                op = 1; 
+                c++;
+                distant = dist;
+                dist = 0;
+                if (p == 1) {
+                    pd++;
+                }
+            }
+        }
+        function sub(sub){
+            if (c == 0 && op == 0) {
+                document.getElementById('resultado').innerHTML += sub; 
+                c++;
+                op = 1;
+                distant = dist;
+                dist = 0;
+            } else {
+            if (op == 0 && dist != 0){
+                document.getElementById('resultado').innerHTML += sub;
+                op = 1;
+                c++;
+                distant = dist;
+                dist = 0;
+                if (p == 1) {
+                    pd++;
+                }
+                
+            } 
+        }
+        }
+    
+function limpar()
+{
+    document.getElementById('resultado').innerHTML = "";
+    c = 0;
+    dist = 0;
+    p = 0;
+    op = 0;
+    pd = 0;
+    distant = 0;
+    rpd = 0;
+}
+function voltar()
+{
+    var resultado = document.getElementById('resultado').innerHTML;
+    document.getElementById('resultado').innerHTML = resultado.substring(0, resultado.length -1);
+    if (c > 0){
+    c--;
+    if (op == 0 && p == 0) {
+        dist--;
+
+    }
+    if (op == 1) {
+        op = 0;
+        dist = distant;
+    }
+    if (p == 1) {
+        if (pd >= 1) {
+            pd--;
+            dist--;
+        } else {
+            p = 0;
+            dist = distant;
+        }
+    }
+}
+}
+function calcular()
+{
+    var resultado = document.getElementById('resultado').innerHTML;
+    if (c > 0)
+    {
+        document.getElementById('resultado').innerHTML = eval(resultado);
+        dist = 0;
+        op = 0;
+        distant = 0;
+        rpd = document.getElementById('resultado').innerHTML;
+        if ((resultado % 2) == 0) {
+            p = 0;
+            pd = 2;
+        }
+        while (rpd >= 1) {
+             rpd = rpd / 10;
+             c++;
+             dist++;   
+            }
+    }
+}
+</script>
+</body>
+</html>
